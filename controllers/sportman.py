@@ -10,13 +10,15 @@ def create():
         data = request.get_json()
         conn = db.conexion()
         cursor = conn.cursor()
-        sql = "INSERT INTO `sportman`(`id`, `name`, `phone`, `age`, `sex`) VALUES(%s,%s,%s,%s,%s) "
+        sql = "INSERT INTO `sportman`(`id`, `name`,`lastname`, `phone`, `age`, `sex`,`email`) VALUES(%s,%s,%s,%s,%s,%s,%s) "
         cursor.execute(sql,
         (data['id'],
         data['name'],
+        data['lastname'],
         data['phone'],
         data['age'],
-        data['sex']))
+        data['sex'],
+        data['email']))
         conn.commit()
         cursor.close()
         return{"message":"Sportman save"},201
@@ -41,11 +43,13 @@ def update(id):
         conn = db.conexion()
         cursor = conn.cursor()
         data = request.get_json()
-        sql="UPDATE `sportman` SET `name`=%s,`phone`=%s,`age`=%s,`sex`=%s WHERE id =%s "
+        sql="UPDATE `sportman` SET `name`=%s,`lastname`=%s,`phone`=%s,`age`=%s,`sex`=%s,`email`=%s WHERE id =%s "
         cursor.execute(sql,(data['name'],
         data['phone'],
+        data['lastname'],
         data['age'],
         data['sex'],
+        data['email'],
         id))
         conn.commit()
         return {"Message":"Deportista Actualizado"},200
